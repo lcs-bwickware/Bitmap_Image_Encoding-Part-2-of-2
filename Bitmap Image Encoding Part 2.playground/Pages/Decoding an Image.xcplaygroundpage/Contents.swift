@@ -16,27 +16,27 @@ import PlaygroundSupport
  * Once we have a new number, we draw that many pixels in the current colour.
  
  First, copy and paste your encoded image string to this page.
-*/
+ */
 
 // Copy your encoded image string here...
 let encodedBitmap = """
 w20
-w14, o2, w4
-w13, b1, o2, w4
-w13, b1, w6
-w7, b2, w3, b2, w6
-w7, b2, w3, b2, w6
-w8, r5, b1, w6
-w7, b2, r3, w8
-w6, b2, w1, r3, w8
-w5, b2, w2, b3, w8
-w8, b5, w7
-w7, b7, w6
-w6, b4, w1, b4, w5
-w5, b3, w5, b3, w4
-w4, b3, w7, b3, w1, b1, w1
-w2, b4, w9, b4, b1
-w17, b1, w2
+w77,o2,w4
+w76,b1,o2,w4
+w76,b1,w6
+w7,b2,w3,b2,w6
+w7,b2,w3,b2,w6
+w8,r5,b1,w6
+w7,b2,r3,w8
+w6,b2,w1,r3,w8
+w5,b2,w2,b3,w8
+w8,b5,w7
+w7,b7,w6
+w6,b4,w1,b4,w5
+w5,b3,w5,b3,w4
+w4,b3,w7,b3,w3
+w2,b3,w92,b3
+w20
 w20
 w20
 w20
@@ -72,13 +72,13 @@ for character in encodedBitmap {
         
         canvas.fillColor = Color.black
         currentColor = "black"
-
-    } else if character == "," {
+    }
+    else if character == "," {
         
         // We have a new number
         // Are we past the first pixel in a row?
         if x > 0 {
-
+            
             // Toggle the pixel colour
             if currentColor == "black" {
                 currentColor = "white"
@@ -87,7 +87,7 @@ for character in encodedBitmap {
                 currentColor = "black"
                 canvas.fillColor = Color.black
             }
-
+            
         }
         
     } else if character == "\n" {
@@ -101,22 +101,37 @@ for character in encodedBitmap {
         canvas.fillColor = Color.white
         currentColor = "white"
         
-    } else {
+    } else if character == "r"{
+        canvas.fillColor = Color.red
+    
+    } else if character == "o"{
+        canvas.fillColor = Color.orange
+    
+    } else if character == "w"{
+        canvas.fillColor = Color.white
+    
+    } else if character == "b"{
+        canvas.fillColor = Color.black
+    }
+        
+        
+    else {
         
         // Get the new number of pixels to draw
+        print(character)
         drawThisManyPixels = Int(String(character))!
         
         // Draw the pixels
         for _ in 1...drawThisManyPixels {
-
+            
             // Draw the enlarged "pixel"
             canvas.drawRectangle(bottomLeftX: x, bottomLeftY: y, width: cellSize, height: cellSize)
             
             // Increase x so that the next pixel is drawn to the right of this one
             x += cellSize
-
+            
         }
-
+        
     }
     
 }
